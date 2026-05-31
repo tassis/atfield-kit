@@ -5,7 +5,7 @@
     "": {
       "name": "my-app",
       "dependencies": {
-        "atfield-core": "^0.1.0",
+        "atfield-core": "^0.1.1",
       },
       "devDependencies": {
         "@eslint/compat": "^2.0.4",
@@ -314,7 +314,7 @@
 
     "aria-query": ["aria-query@5.3.1", "", {}, "sha512-Z/ZeOgVl7bcSYZ/u/rh0fOpvEpq//LZmdbkXyc7syVzjPAhfOa9ebsdTSjEBDU4vs5nC98Kfduj1uFo0qyET3g=="],
 
-    "atfield-core": ["atfield-core@0.1.0", "", {}, "sha512-XV1qwV5jJM6Y1bs9TUDcPbtt+UjbrNV4DKhdSHIyfu/TIIbdHMCrjHWiaYoN5GYdpur0FDSeBTYtVn04yvR4rg=="],
+    "atfield-core": ["atfield-core@0.1.1", "", {}, "sha512-heZqbUO7s92TqvYj1Lr3d/uC/ccI1Zvey2oz0jZ/6yU+ubWOP3fLN4JPuFNBvFkapEEW88hc5K7tMiA2K3tjrA=="],
 
     "axobject-query": ["axobject-query@4.1.0", "", {}, "sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ=="],
 

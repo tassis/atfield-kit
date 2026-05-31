@@ -43,6 +43,6 @@
 		"vite": "^8.0.7"
 	},
 	"dependencies": {
-		"atfield-core": "^0.1.0"
+		"atfield-core": "^0.1.1"
 	}
 }
