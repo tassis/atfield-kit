@@ -35,8 +35,8 @@
 				ATProto-first personal endpoint kit
 			</h1>
 			<p class="max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-				ATField v0 is a config-driven, read-only service that fetches public upstream ATProto data
-				for one configured identity and exposes it through simple HTTP endpoints.
+				A read-only service that fetches public upstream ATProto data for one configured identity
+				and exposes it through simple HTTP endpoints.
 			</p>
 		</div>
 	</header>

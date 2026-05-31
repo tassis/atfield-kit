@@ -1,6 +1,6 @@
 # atfield-kit
 
-`atfield-kit` is a SvelteKit starter for publishing read-only AT Protocol endpoints for one identity.
+`atfield-kit` is a SvelteKit starter for exposing read-only AT Protocol endpoints for one identity.
 
 Current scope:
 
@@ -14,6 +14,8 @@ Default runtime strategy:
 
 - default adapter: Node
 - optional deployment targets: Cloudflare or static-mode snapshots
+
+> `atfield-kit` does not try to be a canonical publishing frontend, CMS, editor, RSS generator, or sitemap generator. Those concerns belong to the user's own site or publishing frontend.
 
 ## Quick Setup
 
@@ -87,7 +89,7 @@ bun run dev
 
 ### Node Default
 
-This repo now defaults to `@sveltejs/adapter-node`.
+This repo defaults to `@sveltejs/adapter-node`.
 
 Build and run:
 
