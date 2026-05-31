@@ -19,8 +19,10 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20260531.1",
 		"@eslint/compat": "^2.0.4",
 		"@eslint/js": "^10.0.1",
+		"@sveltejs/adapter-cloudflare": "^7.2.8",
 		"@sveltejs/adapter-node": "^5.3.2",
 		"@sveltejs/kit": "^2.57.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",

@@ -4,7 +4,7 @@ const config = defineConfig({
 	site: {
 		name: 'ATField',
 		description: 'ATProto-first personal endpoint kit',
-		publicUrl: 'http://localhost:5173'
+		publicUrl: 'https://atfield-kit.pages.dev'
 	},
 	services: {
 		handleResolverUrl: 'https://bsky.social/xrpc',
