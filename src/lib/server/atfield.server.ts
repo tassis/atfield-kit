@@ -1,5 +1,12 @@
 import { getConfig } from '$lib/server/config.server';
 import { getCore, resolveConfiguredIdentity } from '$lib/server/core.server';
+import type {
+	AtfieldPost,
+	AtfieldPostsPayload,
+	AtfieldViewPayload,
+	AtfieldViewsPayload
+} from '$lib/atfield';
+import type { StandardSiteDocumentOutput } from 'atfield-core/providers/standardsite';
 
 export async function getAtfieldProfile() {
 	const core = getCore();
@@ -9,29 +16,29 @@ export async function getAtfieldProfile() {
 	return profile;
 }
 
-export async function getAtfieldPosts() {
+export async function getAtfieldPosts(): Promise<AtfieldPostsPayload> {
 	const config = getConfig();
 	const core = getCore();
 	const identity = await resolveConfiguredIdentity();
-	const { documents: posts } = await core.providers.standardsite.listDocuments(identity, {
+	const { documents: posts } = await core.providers.standardsite.document.list(identity, {
 		limit: config.posts?.limit ?? 10
 	});
 
 	return {
-		posts,
+		posts: posts.map((post) => mapPost(core, post)),
 		count: posts.length
 	};
 }
 
-export async function getAtfieldPost(rkey: string) {
+export async function getAtfieldPost(rkey: string): Promise<AtfieldPost | null> {
 	const core = getCore();
 	const identity = await resolveConfiguredIdentity();
-	const post = await core.providers.standardsite.getDocument(identity, { rkey });
+	const post = await core.providers.standardsite.document.get(identity, { rkey });
 
-	return post;
+	return post ? mapPost(core, post) : null;
 }
 
-export function getAtfieldViews() {
+export function getAtfieldViews(): AtfieldViewsPayload {
 	const config = getConfig();
 
 	return {
@@ -39,12 +46,12 @@ export function getAtfieldViews() {
 			id: view.id,
 			title: view.title,
 			source: view.source,
-			limit: view.limit
+			limit: view.limit ?? config.posts?.limit ?? 10
 		}))
 	};
 }
 
-export async function getAtfieldView(viewId: string) {
+export async function getAtfieldView(viewId: string): Promise<AtfieldViewPayload | null> {
 	const config = getConfig();
 	const view = (config.views ?? []).find((entry) => entry.id === viewId);
 
@@ -56,7 +63,7 @@ export async function getAtfieldView(viewId: string) {
 	const identity = await resolveConfiguredIdentity();
 
 	if (view.source === 'posts') {
-		const { documents: items } = await core.providers.standardsite.listDocuments(identity, {
+		const { documents: items } = await core.providers.standardsite.document.list(identity, {
 			limit: view.limit ?? config.posts?.limit ?? 10
 		});
 
@@ -67,10 +74,21 @@ export async function getAtfieldView(viewId: string) {
 				source: view.source,
 				limit: view.limit ?? config.posts?.limit ?? 10
 			},
-			items,
+			items: items.map((item) => mapPost(core, item)),
 			count: items.length
 		};
 	}
 
 	return null;
+}
+
+function mapPost(core: ReturnType<typeof getCore>, post: StandardSiteDocumentOutput): AtfieldPost {
+	return {
+		...post,
+		renderedMarkdown: post.content
+			? core.providers.standardsite.content.renderMarkdown(post.content, {
+					inlineStyle: 'html'
+				})
+			: post.textContent
+	};
 }

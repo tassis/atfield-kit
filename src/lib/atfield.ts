@@ -1,3 +1,5 @@
+import type { ContentResult as StandardSiteContentResult } from 'atfield-core/providers/standardsite';
+
 export const DEFAULT_HANDLE_RESOLVER_URL = 'https://bsky.social/xrpc';
 export const DEFAULT_APPVIEW_URL = 'https://public.api.bsky.app/xrpc';
 export const DEFAULT_POST_LIMIT = 10;
@@ -70,6 +72,8 @@ export type AtfieldPost = {
 	description?: string;
 	tags?: string[];
 	textContent?: string;
+	renderedMarkdown?: string;
+	content?: StandardSiteContentResult;
 	updatedAt?: string;
 	coverImage?: string;
 	bskyPostUri?: string;
@@ -82,4 +86,26 @@ export type AtfieldPost = {
 		did: string;
 		handle?: string;
 	};
+};
+
+export type AtfieldPostsPayload = {
+	posts: AtfieldPost[];
+	count: number;
+};
+
+export type AtfieldView = {
+	id: string;
+	title: string;
+	source: 'posts';
+	limit: number;
+};
+
+export type AtfieldViewsPayload = {
+	views: AtfieldView[];
+};
+
+export type AtfieldViewPayload = {
+	view: AtfieldView;
+	items: AtfieldPost[];
+	count: number;
 };
