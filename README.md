@@ -10,9 +10,9 @@ Write with offprint, pckt.blog, or leaflet. Use atfield-kit to expose your AT Pr
 
 It is designed to stay simple:
 
-* clone this repo
-* edit `atfield.config.ts`
-* deploy it
+- clone this repo
+- edit `atfield.config.ts`
+- deploy it
 
 No AppView. No indexer. No heavy backend.
 
@@ -38,28 +38,28 @@ Use existing AT Protocol apps to publish content. Use atfield-kit to make that c
 
 From AT Protocol:
 
-* DID-first identity resolution
-* Bluesky profile reads
-* `site.standard.document` post reads from offprint, pckt.blog, and leaflet
+- DID-first identity resolution
+- Bluesky profile reads
+- `site.standard.document` post reads from offprint, pckt.blog, and leaflet
 
 As HTTP endpoints:
 
-* profile JSON
-* posts JSON
-* single-post JSON
-* configurable views
-* structured `content`
-* optional `renderedMarkdown`
-* minimal feed-generator XRPC endpoints
+- profile JSON
+- posts JSON
+- single-post JSON
+- configurable views
+- structured `content`
+- optional `renderedMarkdown`
+- minimal feed-generator XRPC endpoints
 
 ## Use cases
 
-* Use AT Protocol as a lightweight CMS-like source for a personal site
-* Expose Bluesky profile data as JSON
-* Write with offprint, pckt.blog, or leaflet, then publish to your own frontend through `site.standard.document`
-* Build static snapshots from AT Protocol records
-* Provide simple endpoints for Astro, SvelteKit, Next.js, or other clients
-* Experiment with feed-generator endpoints without building a full AppView
+- Use AT Protocol as a lightweight CMS-like source for a personal site
+- Expose Bluesky profile data as JSON
+- Write with offprint, pckt.blog, or leaflet, then publish to your own frontend through `site.standard.document`
+- Build static snapshots from AT Protocol records
+- Provide simple endpoints for Astro, SvelteKit, Next.js, or other clients
+- Experiment with feed-generator endpoints without building a full AppView
 
 ## What it is not
 
@@ -67,12 +67,12 @@ atfield-kit is intentionally small.
 
 It is not:
 
-* a canonical publishing frontend
-* a CMS editor
-* an AppView
-* an indexer
-* an RSS or sitemap generator
-* a replacement for existing AT Protocol apps
+- a canonical publishing frontend
+- a CMS editor
+- an AppView
+- an indexer
+- an RSS or sitemap generator
+- a replacement for existing AT Protocol apps
 
 Those concerns should stay in your publishing app, website, or frontend.
 
@@ -96,9 +96,9 @@ Edit `atfield.config.ts`.
 
 At minimum, set:
 
-* `site.name`
-* `site.publicUrl`
-* `identity.handle` or `identity.did`
+- `site.name`
+- `site.publicUrl`
+- `identity.handle` or `identity.did`
 
 Example:
 
@@ -146,18 +146,18 @@ node build
 
 ### Basic endpoints
 
-* `GET /health.json`
-* `GET /profile.json`
-* `GET /posts.json`
-* `GET /posts/[post].json`
-* `GET /posts/[post].json?type=text`
-* `GET /views.json`
-* `GET /views/[view].json`
+- `GET /health.json`
+- `GET /profile.json`
+- `GET /posts.json`
+- `GET /posts/[post].json`
+- `GET /posts/[post].json?type=text`
+- `GET /views.json`
+- `GET /views/[view].json`
 
 ### Feed generator endpoints
 
-* `GET /xrpc/app.bsky.feed.describeFeedGenerator`
-* `GET /xrpc/app.bsky.feed.getFeedSkeleton?feed=...`
+- `GET /xrpc/app.bsky.feed.describeFeedGenerator`
+- `GET /xrpc/app.bsky.feed.getFeedSkeleton?feed=...`
 
 ## Content model
 
@@ -165,13 +165,13 @@ atfield-kit exposes normalized content for easier frontend integration.
 
 Posts can include:
 
-* source URI
-* CID
-* title
-* path or slug
-* structured content
-* rendered Markdown
-* original record metadata
+- source URI
+- CID
+- title
+- path or slug
+- structured content
+- rendered Markdown
+- original record metadata
 
 The goal is to preserve useful AT Protocol record data while still giving websites and frontend tools something easy to consume.
 
@@ -181,9 +181,9 @@ The default setup uses the Node adapter.
 
 atfield-kit is intentionally small so it can be adapted to different deployment styles:
 
-* Node server
-* Cloudflare Pages / Workers
-* static snapshot output
+- Node server
+- Cloudflare Pages / Workers
+- static snapshot output
 
 The recommended starting point is the default Node setup. Cloudflare and static snapshot modes can be added when your project needs them.
 
@@ -202,4 +202,3 @@ atfield-kit exists to make AT Protocol records easier to reuse on the open web.
 It does not try to own your publishing workflow. Instead, it gives your AT Protocol identity a simple endpoint layer that your website, frontend, static generator, feed, or integration can consume.
 
 Write with existing AT Protocol apps. Expose with atfield-kit. Build your own web surface on top.
-

@@ -13,10 +13,26 @@
 		},
 		{
 			path: '/posts.json',
-			description: 'Normalized recent standard.site documents for the configured identity'
+			description: 'Normalized recent site.standard.document posts for the configured identity'
 		},
 		{ path: '/views.json', description: 'Configured view definitions for the current identity' },
-		{ path: '/views/recent.json', description: 'Resolved items for a configured view' }
+		{
+			path: '/xrpc/app.bsky.feed.describeFeedGenerator',
+			description: 'Feed generator metadata for configured views'
+		},
+		{
+			path: '/xrpc/app.bsky.feed.getFeedSkeleton?feed=...',
+			description: 'Feed skeleton output for a configured feed view'
+		}
+	];
+
+	const dynamicEndpoints = [
+		{ path: '/posts/[post].json', description: 'Single post payload for a post rkey' },
+		{
+			path: '/posts/[post].json?type=text',
+			description: 'Plain text response using renderedMarkdown when available'
+		},
+		{ path: '/views/[view].json', description: 'Resolved items for a configured view' }
 	];
 
 	let { data }: { data: { profile: ProfilePreview | null } } = $props();
@@ -24,19 +40,19 @@
 
 <svelte:head>
 	<title>ATField</title>
-	<meta name="description" content="ATProto-first personal endpoint kit" />
+	<meta name="description" content="A personal CMS on AT Protocol" />
 </svelte:head>
 
 <div class="mx-auto flex min-h-screen max-w-4xl flex-col gap-10 px-6 py-12 sm:px-8">
 	<header class="space-y-4">
-		<p class="text-sm font-medium tracking-[0.24em] text-sky-600 uppercase">ATField v0</p>
+		<p class="text-sm font-medium tracking-[0.24em] text-sky-600 uppercase">atfield-kit</p>
 		<div class="space-y-3">
 			<h1 class="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
-				ATProto-first personal endpoint kit
+				A personal CMS on AT Protocol
 			</h1>
 			<p class="max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-				A read-only service that fetches public upstream ATProto data for one configured identity
-				and exposes it through simple HTTP endpoints.
+				Write with offprint, pckt.blog, or leaflet. Use atfield-kit to expose your records as clean
+				endpoints for your site, feed, static build, or custom integration.
 			</p>
 		</div>
 	</header>
@@ -44,9 +60,9 @@
 	<section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
 		<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 			<div class="space-y-1">
-				<h2 class="text-lg font-semibold text-slate-900">Avatar preview</h2>
+				<h2 class="text-lg font-semibold text-slate-900">Configured identity</h2>
 				<p class="text-sm text-slate-600">
-					Server-loaded profile avatar rendered from the ATProto blob URL.
+					Loaded from <code>/profile.json</code> for the configured identity.
 				</p>
 			</div>
 
@@ -80,14 +96,15 @@
 			<p class="text-sm leading-6 text-slate-600">
 				Edit <code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">atfield.config.ts</code
 				>
-				with your <code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">handle</code>
-				and optionally your
-				<code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">did</code>.
+				with your site info and identity.
 			</p>
 			<p class="text-sm leading-6 text-slate-600">
-				Minimal views are also configured in
-				<code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">atfield.config.ts</code>
-				and currently project the configured identity&apos;s standard.site documents.
+				Set <code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">site.name</code>,
+				<code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">site.publicUrl</code>, and
+				either
+				<code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">identity.handle</code>
+				or <code class="rounded bg-slate-100 px-1.5 py-0.5 text-slate-800">identity.did</code>.
+				Optionally add views for recent posts or feed output.
 			</p>
 		</div>
 
@@ -97,14 +114,33 @@
 				{#each endpoints as endpoint (endpoint.path)}
 					<li class="rounded-xl border border-slate-200 bg-slate-50 p-4">
 						<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-							<code class="font-mono text-sm text-sky-700">
+							<a
+								href={endpoint.path}
+								class="font-mono text-sm text-sky-700 underline decoration-sky-200 underline-offset-4 hover:text-sky-800"
+							>
 								{endpoint.path}
-							</code>
+							</a>
 							<p class="text-sm text-slate-600">{endpoint.description}</p>
 						</div>
 					</li>
 				{/each}
 			</ul>
+
+			<div class="space-y-3 pt-2">
+				<h3 class="text-sm font-semibold tracking-wide text-slate-900 uppercase">
+					Dynamic patterns
+				</h3>
+				<ul class="grid gap-3">
+					{#each dynamicEndpoints as endpoint (endpoint.path)}
+						<li class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+							<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+								<code class="font-mono text-sm text-slate-700">{endpoint.path}</code>
+								<p class="text-sm text-slate-600">{endpoint.description}</p>
+							</div>
+						</li>
+					{/each}
+				</ul>
+			</div>
 		</div>
 	</section>
 </div>
